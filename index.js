@@ -40,7 +40,7 @@ currentBranch()
 
 
 function checkout(branch){
-	return exec('git checkout ${branch}');
+	return exec(`git checkout ${branch}`);
 }
 
 function currentBranch(){
@@ -48,14 +48,7 @@ function currentBranch(){
 }
 
 function unpushed(branch){
-	console.log('wtf', branch)
-	return exec('git log origin/${branch}..HEAD');
-	return exec('!GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log origin/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline');
-	return new Promise(function(res, rej){
-		var query = '!GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log origin/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline';
-		exec('!GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log origin/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline')
-	});
-
+	return exec(`git log origin/${branch}..HEAD`);
 }
 
 function exec(query, options){
