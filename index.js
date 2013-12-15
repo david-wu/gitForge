@@ -16,7 +16,7 @@ function ensureCleanTree(){
 	return exec('git status -s')
 		.then(function(res){
 			if(res){throw 'You have unstaged changes! stash or commit first';}
-		})
+		});
 }
 
 function currentBranch(){
@@ -49,19 +49,16 @@ function parseCommits(str){
 function modifyCommits(commits){
 	if(!commits){throw 'no unpushed commits to modify';}
 
-	var startDate = _.first(commits).date;
-	var endDate = _.last(commits).date;
-
-	var dates = _.map(commits, function(commit){
-		return randomTime(commit.date);
-	});
-
-	dates = _.sortBy(dates, function(date){
-		return -date;
-	});
+	var targetDates = commits
+		.map(function(commit){
+			return commit.afterHours();
+		})
+		.sort(function(a,b){
+			return a-b;
+		});
 
 	return _.reduce(commits, function(promise, commit, i){
-		var targetDate = +dates[i];
+		var targetDate = +targetDates[i];
 
 		if(!promise){return commit.setDate(targetDate);}
 		return promise.then(function(){
@@ -71,17 +68,6 @@ function modifyCommits(commits){
 	}, undefined);
 }
 
-function randomTime(date){
-	var randomHour = 21 + _.random(0, 4);
-	var randomMinute = _.random(0, 60);
-
-	var d = new Date(+date);
-	d.setHours(randomHour);
-	d.setMinutes(randomMinute);
-	return d;
-}
-
-
 function Commit(options){
 	_.extend(this, options);
 	this.title = this.getTitle();
@@ -90,6 +76,15 @@ function Commit(options){
 Commit.prototype = {
 	getTitle: function(){
 		return /\s*([^\s]*)/.exec(this.description)[1];
+	},
+	afterHours: function(){
+		var randomHour = 21 + _.random(0, 4);
+		var randomMinute = _.random(0, 60);
+
+		var d = new Date(+this.date);
+		d.setHours(randomHour);
+		d.setMinutes(randomMinute);
+		return d;
 	},
 	setDate: function(timestamp){
 		var id = this.id;

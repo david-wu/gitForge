@@ -8,7 +8,9 @@ Replace timestamps in your commits
   * You like green squares
 
 ### Usage
-
+```
+	gitForge
+```
 
 ### Setup
 ```
