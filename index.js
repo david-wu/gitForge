@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var _ = require('lodash');
 var childProcess = require('child_process')
 var fuzzy = require('fuzzy');
 
@@ -11,7 +12,8 @@ var fuzzy = require('fuzzy');
 // 	.catch(console.log.bind(null, 'error:'));
 
 currentBranch()
-	.then(unpushed)
+	.then(unpushedLog)
+	.then(parseLog)
 	.then(console.log);
 
 
@@ -39,16 +41,36 @@ currentBranch()
 // }
 
 
-function checkout(branch){
-	return exec(`git checkout ${branch}`);
-}
+// function checkout(branch){
+// 	return exec(`git checkout ${branch}`);
+// }
 
 function currentBranch(){
 	return exec('git name-rev --name-only HEAD');
 }
 
-function unpushed(branch){
+function unpushedLog(branch){
 	return exec(`git log origin/${branch}..HEAD`);
+}
+
+function parseLog(str){
+
+	var re = /commit +([^\n]*)\nAuthor: +([^\n]*)\nDate: +([^\n]*?)\n/;
+	var arr = str.split(re);
+	arr.shift();
+
+	var commits = [];
+
+	while(arr.length >= 4){
+		commits.push({
+			description: arr.pop(),
+			date: arr.pop(),
+			author: arr.pop(),
+			id: arr.pop()
+		});
+	}
+
+	return commits.reverse();
 }
 
 function exec(query, options){
