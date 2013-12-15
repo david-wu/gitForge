@@ -2,7 +2,6 @@
 
 var _ = require('lodash');
 var childProcess = require('child_process')
-var fuzzy = require('fuzzy');
 var dateFormat = require('dateformat');
 
 ensureCleanTree()
