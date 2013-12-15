@@ -38,6 +38,7 @@ currentBranch()
 // 	return result.string;
 // }
 
+
 function checkout(branch){
 	return exec('git checkout ${branch}');
 }
