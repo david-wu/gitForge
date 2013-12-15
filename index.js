@@ -16,9 +16,7 @@ ensureCleanTree()
 function ensureCleanTree(){
 	return exec('git status -s')
 		.then(function(res){
-			if(res){
-				throw 'You have unstaged changes! stash or commit first';
-			}
+			if(res){throw 'You have unstaged changes! stash or commit first';}
 		})
 }
 
@@ -50,6 +48,7 @@ function parseCommits(str){
 }
 
 function modifyCommits(commits){
+	if(!commits){throw 'no unpushed commits to modify';}
 
 	var startDate = _.first(commits).date;
 	var endDate = _.last(commits).date;
