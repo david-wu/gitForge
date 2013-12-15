@@ -9,7 +9,9 @@ ensureCleanTree()
 	.then(unpushedCommits)
 	.then(parseCommits)
 	.then(modifyCommits)
-	.then(console.log)
+	.then(function(){
+		console.log('success!')
+	})
 	.catch(console.log);
 
 function ensureCleanTree(){
