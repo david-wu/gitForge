@@ -55,9 +55,11 @@ function modifyCommits(commits){
 		.map(function(commit){
 			return commit.afterHours();
 		})
-		.sort(function(a,b){
-			return b-a;
+		console.log(targetDates);
+	targetDates.sort(function(a,b){
+			return +b-a;
 		});
+	console.log(targetDates)
 
 	return _.reduce(commits, function(promise, commit, i){
 		var targetDate = +targetDates[i];
