@@ -56,7 +56,7 @@ function modifyCommits(commits){
 			return commit.afterHours();
 		})
 		.sort(function(a,b){
-			return a-b;
+			return b-a;
 		});
 
 	return _.reduce(commits, function(promise, commit, i){
