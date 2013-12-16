@@ -15,6 +15,7 @@ ensureCleanTree()
 	.catch(console.log);
 
 function ensureCleanTree(){
+	return exec('')
 	return exec('git status -s')
 		.then(function(res){
 			if(res){throw 'You have unstaged changes! stash or commit first';}
@@ -55,11 +56,12 @@ function modifyCommits(commits){
 		.map(function(commit){
 			return commit.afterHours();
 		})
-		console.log(targetDates);
-	targetDates.sort(function(a,b){
+		.sort(function(a,b){
 			return +b-a;
 		});
-	console.log(targetDates)
+
+
+	console.log('Setting commit times:\n\t' + targetDates.join('\n\t'))
 
 	return _.reduce(commits, function(promise, commit, i){
 		var targetDate = +targetDates[i];
