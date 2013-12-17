@@ -60,7 +60,6 @@ function modifyCommits(commits){
 			return +b-a;
 		});
 
-
 	console.log('Setting commit times:\n\t' + targetDates.join('\n\t'))
 
 	return _.reduce(commits, function(promise, commit, i){
