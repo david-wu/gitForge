@@ -64,7 +64,7 @@ function parseLog(str){
 	while(arr.length >= 4){
 		commits.push({
 			description: arr.pop(),
-			date: arr.pop(),
+			date: +new Date(arr.pop()),
 			author: arr.pop(),
 			id: arr.pop()
 		});
