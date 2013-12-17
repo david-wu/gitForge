@@ -14,7 +14,8 @@ npm install -g gitForge
 ### Usage
 ```
 gitForge
-<!--
+```
+```<!--
 	=> Setting commit times:
 		Mon Dec 16 2013 00:54:00 GMT-0800 (PST)
 		Sun Dec 15 2013 23:53:00 GMT-0800 (PST)
@@ -28,4 +29,3 @@ gitForge
 	success!
  -->
 ```
-
