@@ -105,7 +105,6 @@ Commit.prototype = {
 
 		return exec(query);
 	}
-
 }
 
 function exec(query, options){
