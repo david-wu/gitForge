@@ -123,4 +123,3 @@ function exec(query, options){
 function chomp(string){
 	return string.replace(/[\n\r]+$/, '');
 }
-
