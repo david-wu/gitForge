@@ -62,13 +62,17 @@ function parseLog(str){
 	var commits = [];
 
 	while(arr.length >= 4){
-		commits.push({
+		commits.push(new Commit({
 			description: arr.pop(),
 			date: +new Date(arr.pop()),
 			author: arr.pop(),
 			id: arr.pop()
-		});
+		}));
 	}
+
+	_.each(commits, function(commit){
+		commit.setDate();
+	});
 
 	return commits.reverse();
 }
@@ -90,9 +94,29 @@ function chomp(string){
 	return string.replace(/[\n\r]+$/, '');
 }
 
-// git filter-branch --env-filter \
-//     'if [ $GIT_COMMIT = 119f9ecf58069b265ab22f1f97d2b648faf932e0 ]
-//      then
-//          export GIT_AUTHOR_DATE="Fri Jan 2 21:38:53 2009 -0800"
-//          export GIT_COMMITTER_DATE="Sat May 19 01:01:01 2007 -0700"
-//      fi'
+
+
+function Commit(options){
+	_.extend(this, options)
+}
+Commit.prototype = {
+	setDate: function(){
+		var id = this.id;
+
+		var query = `git filter-branch --env-filter \
+		    'if [ $GIT_COMMIT = ${id} ]
+		     then
+		         export GIT_COMMITTER_DATE="Sat May 19 01:01:01 2007 -0700"
+		     fi'`;
+
+		return exec(query)
+		.catch(function(err){
+			console.log('err',err)
+		})
+		.then(function(res){
+			console.log('succ', res)
+		})
+	}
+}
+
+
