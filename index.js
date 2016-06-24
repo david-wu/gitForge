@@ -81,7 +81,7 @@ Commit.prototype = {
 	setDate: function(){
 		var id = this.id;
 
-		var query = `git filter-branch --env-filter \
+		var query = `git filter-branch -f --env-filter \
 			'if [ $GIT_COMMIT = ${id} ]
 				then
 					export GIT_AUTHOR_DATE='Sat, 14 Dec 2013 12:40:00 +0000'
