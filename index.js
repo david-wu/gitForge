@@ -76,7 +76,7 @@ function Commit(options){
 
 Commit.prototype = {
 	getTitle: function(){
-		return /\s*(.*?)\n*/.exec(this.description)[1];
+		return /\s*([^\n]*)\n/.exec(this.description)[1];
 	},
 	afterHours: function(){
 		if(this.date.getHours() <= 6){
