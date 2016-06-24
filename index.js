@@ -70,9 +70,12 @@ function parseLog(str){
 		}));
 	}
 
-	_.each(commits, function(commit){
-		commit.setDate();
-	});
+	_.reduce(commits, function(memo, commit){
+		if(!memo){return commit.setDate()}
+		memo.then(function(){
+			return commit.setDate();
+		})
+	}, null);
 
 	return commits.reverse();
 }
