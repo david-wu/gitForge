@@ -67,7 +67,7 @@ function modifyCommits(commits){
 
 		if(!promise){return commit.setDate(targetDate);}
 		return promise.then(function(){
-			console.log(`rebasing: ${i}/${commits.length}`);
+			console.log(`rebasing: (${i}/${commits.length}) ${commit.title}`);
 			return commit.setDate(targetDate);
 		});
 	}, undefined);
