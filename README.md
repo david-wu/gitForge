@@ -1,7 +1,7 @@
 GitForge
 ============
 
-Change timestamps of local commits to after work hours (9pm-2am)
+Change timestamps of local commits to night time (9pm-2am)
 
 ### Why would I want to use this?
   * no reason

@@ -1,6 +1,6 @@
 {
   "name": "gitForge",
-  "description": "Change timestamps of local commits to after work hours",
+  "description": "Change timestamps of local commits to night time",
   "version": "0.0.2",
   "author": "David Wu <david.wuu@gmail.com>",
   "license": "MIT",
