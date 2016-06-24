@@ -42,6 +42,8 @@ function parseCommits(str){
 
 function modifyCommits(commits){
 
+	return commits[0].setDate();
+
 	return _.reduce(commits, function(promise, commit){
 		if(!promise){return commit.setDate();}
 		promise.then(function(){
