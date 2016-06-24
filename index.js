@@ -42,10 +42,13 @@ function parseCommits(str){
 
 function modifyCommits(commits){
 
-	_.each(commits, function(commit){
-		commit.setDate();
-	})
-	return commits;
+	return _.reduce(commits, function(promise, commit){
+		if(!promise){return commit.setDate();}
+		promise.then(function(){
+			return commit.setDate();
+		});
+	}, undefined)
+	// return commits;
 }
 
 function exec(query, options){
