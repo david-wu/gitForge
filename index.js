@@ -5,10 +5,10 @@ var childProcess = require('child_process')
 var dateFormat = require('dateformat');
 
 ensureCleanTree()
-	.then(currentBranch)
-	.then(unpushedCommits)
+	.then(getCurrentBranch)
+	.then(getLocalCommits)
 	.then(parseCommits)
-	.then(modifyCommits)
+	.then(setCommitDates)
 	.then(function(){
 		console.log('success!')
 	})
@@ -21,16 +21,16 @@ function ensureCleanTree(){
 		});
 }
 
-function currentBranch(){
+function getCurrentBranch(){
 	return exec('git name-rev --name-only HEAD');
 }
 
-function unpushedCommits(branch){
+function getLocalCommits(branch){
 	return exec(`git log origin/${branch}..HEAD`);
 }
 
 function parseCommits(str){
-	var re = /commit +([^\n]*)\nAuthor: +([^\n]*)\nDate: +([^\n]*?)\n/;
+	var re = /commit +([^\n]*)\nAuthor: +([^\n]*)\nDate: +([^\n]*)\n/;
 	var arr = str.split(re);
 	arr.shift();
 
@@ -48,8 +48,8 @@ function parseCommits(str){
 	return commits.reverse();
 }
 
-function modifyCommits(commits){
-	if(!commits){throw 'no unpushed commits to modify';}
+function setCommitDates(commits){
+	if(!commits || !commits.length){throw 'no unpushed commits to modify';}
 
 	var targetDates = commits
 		.map(function(commit){
