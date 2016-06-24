@@ -18,7 +18,7 @@ function ensureCleanTree(){
 	return exec('')
 	return exec('git status -s')
 		.then(function(res){
-			if(res){throw 'You have unstaged changes! stash or commit first';}
+			if(res){throw 'You have unstaged changes! stash or commit them first';}
 		});
 }
 
