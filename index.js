@@ -79,6 +79,10 @@ Commit.prototype = {
 		return /\s*([^\s]*)/.exec(this.description)[1];
 	},
 	afterHours: function(){
+		if(this.date.getHours() <= 6){
+			this.date.setDate(this.date.getDate()-1);
+		}
+
 		var randomHour = 21 + _.random(0, 4);
 		var randomMinute = _.random(0, 60);
 
