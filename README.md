@@ -3,9 +3,6 @@ GitForge
 
 Change timestamps of local commits to night time (9pm-2am)
 
-### Why would I want to use this?
-  * no reason
-
 ### Setup
 ```
 npm install -g gitForge
@@ -15,17 +12,14 @@ npm install -g gitForge
 ```
 gitForge
 ```
-```<!--
-	=> Setting commit times:
-		Mon Dec 16 2016 00:54:00 GMT-0800 (PST)
-		Sun Dec 15 2016 23:53:00 GMT-0800 (PST)
-		Sun Dec 15 2016 22:56:00 GMT-0800 (PST)
-		Sun Dec 15 2016 21:21:00 GMT-0800 (PST)
-		Sat Dec 14 2016 21:26:00 GMT-0800 (PST)
-	rebasing: 1/5
-	rebasing: 2/5
-	rebasing: 3/5
-	rebasing: 4/5
-	success!
- -->
+```
+rebasing: (1/8) [Fri Jun 24 2016 01:46:53] package.json
+rebasing: (2/8) [Fri Jun 24 2016 01:31:49] asdf
+rebasing: (3/8) [Fri Jun 24 2016 00:21:08] random
+rebasing: (4/8) [Thu Jun 23 2016 23:08:55] clean up
+rebasing: (5/8) [Thu Jun 23 2016 22:56:20] prevent date changing
+rebasing: (6/8) [Thu Jun 23 2016 22:50:34] update version
+rebasing: (7/8) [Thu Jun 23 2016 22:21:28] commit two
+rebasing: (8/8) [Thu Jun 23 2016 21:22:55] commit one
+success!
 ```
