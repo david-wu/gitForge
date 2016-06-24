@@ -70,12 +70,13 @@ function parseLog(str){
 		}));
 	}
 
-	_.reduce(commits, function(memo, commit){
-		if(!memo){return commit.setDate()}
-		memo.then(function(){
-			return commit.setDate();
-		})
-	}, null);
+	commits[0].setDate()
+	// _.reduce(commits, function(memo, commit){
+	// 	if(!memo){return commit.setDate()}
+	// 	memo.then(function(){
+	// 		return commit.setDate();
+	// 	})
+	// }, null);
 
 	return commits.reverse();
 }
