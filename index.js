@@ -42,14 +42,17 @@ function parseCommits(str){
 
 function modifyCommits(commits){
 
-	return commits[1].setDate();
-
+	// return commits[1].setDate();
+console.log('settingDates')
 	return _.reduce(commits, function(promise, commit){
 		if(!promise){return commit.setDate();}
 		promise.then(function(){
 			return commit.setDate();
 		});
 	}, undefined)
+	.catch(function(){
+		console.log('failed to set date')
+	})
 	// return commits;
 }
 
