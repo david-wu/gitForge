@@ -46,13 +46,16 @@ function modifyCommits(commits){
 console.log('settingDates')
 	return _.reduce(commits, function(promise, commit){
 		if(!promise){return commit.setDate();}
-		promise.then(function(){
+		return promise.then(function(){
 			return commit.setDate();
 		});
 	}, undefined)
+
 	.catch(function(){
 		console.log('failed to set date')
 	})
+
+	return a;
 	// return commits;
 }
 
@@ -97,9 +100,9 @@ Commit.prototype = {
 			.catch(function(err){
 				console.log('err',err)
 			})
-			.then(function(res){
-				console.log('succ', res)
-			})
+			// .then(function(res){
+			// 	console.log('succ', res)
+			// })
 	}
 }
 
