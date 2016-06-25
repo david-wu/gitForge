@@ -63,9 +63,10 @@ function modifyCommits(commits){
 	console.log('Setting commit times =>\n\t' + targetDates.join('\n\t'));
 
 	return _.reduce(commits, function(promise, commit, i){
+		var targetDate = +targetDates[i];
 		return promise
 			.then(function(){
-				console.log(`rebasing: (${i+1}/${commits.length}) ${commit.title} (${+targetDates[i]})`);
+				console.log(`rebasing: (${i+1}/${commits.length}) ${commit.title} (${targetDate})`);
 				return commit.setDate(targetDate);
 			});
 	}, Promise.resolve());
