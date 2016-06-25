@@ -89,6 +89,7 @@ Commit.prototype = {
 	setDate: function(){
 		var id = this.id;
 
+		console.log(id)
 		var query = `git filter-branch -f --env-filter \
 			"if [ $GIT_COMMIT = '${id}' ]
 			then
