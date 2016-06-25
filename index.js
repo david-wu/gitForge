@@ -60,17 +60,15 @@ function modifyCommits(commits){
 			return +b-a;
 		});
 
-	console.log('Setting commit times:\n\t' + targetDates.join('\n\t'))
+	console.log('Setting commit times =>\n\t' + targetDates.join('\n\t'));
 
 	return _.reduce(commits, function(promise, commit, i){
-		console.log(`rebasing: (${i+1}/${commits.length}) ${commit.title}`);
-
-		var targetDate = +targetDates[i];
-		if(!promise){return commit.setDate(targetDate);}
-		return promise.then(function(){
-			return commit.setDate(targetDate);
-		});
-	}, undefined);
+		return promise
+			.then(function(){
+				console.log(`rebasing: (${i+1}/${commits.length}) ${commit.title} (${+targetDates[i]})`);
+				return commit.setDate(targetDate);
+			});
+	}, Promise.resolve());
 }
 
 function Commit(options){
