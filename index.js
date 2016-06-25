@@ -90,11 +90,10 @@ Commit.prototype = {
 		var id = this.id;
 
 		var query = `git filter-branch -f --env-filter \
-			"if [ $GIT_COMMIT = '${id}' ]
-			then
+			"
 				export GIT_AUTHOR_DATE='Sun, 15 Dec 2013 12:40:00 +0000'
 				export GIT_COMMITTER_DATE='Sun, 15 Dec 2013 12:40:00 +0000'
-			fi"`;
+			"`;
 		console.log(query)
 
 		return exec(query)
