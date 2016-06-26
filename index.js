@@ -51,9 +51,9 @@ console.log('settingDates')
 		});
 	}, undefined)
 
-	.catch(function(){
-		console.log('failed to set date')
-	})
+		.catch(function(){
+			console.log('failed to set date');
+		});
 
 	return a;
 	// return commits;
@@ -77,7 +77,6 @@ function chomp(string){
 }
 
 
-
 function Commit(options){
 	_.extend(this, options);
 	this.title = this.getTitle();
@@ -87,22 +86,19 @@ Commit.prototype = {
 	getTitle: function(){
 		return /\s*([^\s]*)/.exec(this.description)[1];
 	},
-	setDate: function(){
+	setDate: function(date){
 		var id = this.id;
+		var date = new Date(3128472).toString();
 
 		var query = `git filter-branch -f --env-filter \
 			'
 			if test "$GIT_COMMIT" = "${id}"
 			then
-				export GIT_AUTHOR_DATE="Mon, 9 Dec 2013 12:40:00 +0000"
-				export GIT_COMMITTER_DATE="Mon, 9 Dec 2013 12:40:00 +0000"
+				export GIT_AUTHOR_DATE="${date}"
+				export GIT_COMMITTER_DATE="${date}"
 			fi' && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
-		console.log(query)
 
 		return exec(query)
-			.catch(function(err){
-				console.log('err',err)
-			})
 			.then(function(res){
 				console.log('succ', res)
 			})
