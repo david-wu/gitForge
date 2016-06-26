@@ -37,7 +37,7 @@ function parseCommits(str){
 		}));
 	}
 
-	return commits.reverse();
+	return commits;
 }
 
 function modifyCommits(commits){
