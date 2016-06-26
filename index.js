@@ -42,7 +42,7 @@ function parseCommits(str){
 
 function modifyCommits(commits){
 
-	// return commits[1].setDate();
+	return commits[1].setDate();
 console.log('settingDates')
 	return _.reduce(commits, function(promise, commit){
 		if(!promise){return commit.setDate();}
@@ -92,8 +92,8 @@ Commit.prototype = {
 		var query = `git filter-branch -f --env-filter \
 			"if test \$GIT_COMMIT = '${id}'
 			then
-				export GIT_AUTHOR_DATE='Fri, 14 Dec 2013 12:40:00 +0000'
-				export GIT_COMMITTER_DATE='Fri, 14 Dec 2013 12:40:00 +0000'
+				export GIT_AUTHOR_DATE='Fri, 13 Dec 2013 12:40:00 +0000'
+				export GIT_COMMITTER_DATE='Fri, 13 Dec 2013 12:40:00 +0000'
 			fi" && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 		console.log(query)
 
