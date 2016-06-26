@@ -51,8 +51,8 @@ console.log('settingDates')
 		});
 	}, undefined)
 
-		.catch(function(){
-			console.log('failed to set date');
+		.catch(function(err){
+			console.log('failed to set date', err);
 		});
 
 	return a;
