@@ -88,7 +88,7 @@ Commit.prototype = {
 	},
 	setDate: function(date){
 		var id = this.id;
-		var date = new Date(3128472).toString();
+		var date = +new Date(3128472);
 
 		var query = `git filter-branch -f --env-filter \
 			'
