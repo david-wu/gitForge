@@ -93,8 +93,8 @@ Commit.prototype = {
 			"
 			if test $GIT_COMMIT = '${id}'
 			then
-				export GIT_AUTHOR_DATE='Fri, 13 Dec 2013 12:40:00 +0000'
-				export GIT_COMMITTER_DATE='Fri, 13 Dec 2013 12:40:00 +0000'
+				export GIT_AUTHOR_DATE='Wed, 11 Dec 2013 12:40:00 +0000'
+				export GIT_COMMITTER_DATE='Wed, 11 Dec 2013 12:40:00 +0000'
 			fi" && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 		console.log(query)
 
