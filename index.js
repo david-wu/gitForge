@@ -7,7 +7,7 @@ var fuzzy = require('fuzzy');
 currentBranch()
 	.then(unpushedCommits)
 	.then(parseCommits)
-	// .then(modifyCommits)
+	.then(modifyCommits)
 	.then(console.log)
 	.catch(console.log);
 
