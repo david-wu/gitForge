@@ -7,7 +7,7 @@ var fuzzy = require('fuzzy');
 currentBranch()
 	.then(unpushedCommits)
 	.then(parseCommits)
-	.then(modifyCommits)
+	// .then(modifyCommits)
 	.then(console.log)
 	.catch(console.log);
 
@@ -37,12 +37,12 @@ function parseCommits(str){
 		}));
 	}
 
-	return commits;
+	return commits.reverse();
 }
 
 function modifyCommits(commits){
 
-	return commits[1].setDate();
+	// return commits[1].setDate();
 console.log('settingDates')
 	return _.reduce(commits, function(promise, commit){
 		if(!promise){return commit.setDate();}
@@ -94,8 +94,8 @@ Commit.prototype = {
 			'
 			if test "$GIT_COMMIT" = "${id}"
 			then
-				export GIT_AUTHOR_DATE="Wed, 11 Dec 2013 12:40:00 +0000"
-				export GIT_COMMITTER_DATE="Wed, 11 Dec 2013 12:40:00 +0000"
+				export GIT_AUTHOR_DATE="Mon, 9 Dec 2013 12:40:00 +0000"
+				export GIT_COMMITTER_DATE="Mon, 9 Dec 2013 12:40:00 +0000"
 			fi' && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 		console.log(query)
 
