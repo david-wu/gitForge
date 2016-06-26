@@ -82,6 +82,7 @@ function Commit(options){
 	_.extend(this, options);
 	this.title = this.getTitle();
 }
+
 Commit.prototype = {
 	getTitle: function(){
 		return /\s*([^\s]*)/.exec(this.description)[1];
