@@ -91,9 +91,12 @@ Commit.prototype = {
 
 		var query = `git filter-branch -f --env-filter \
 			"
+			echo \$GIT_COMMIT
+			if test '\$GIT_COMMIT' = '${id}'
+			then
 				export GIT_AUTHOR_DATE='Fri, 13 Dec 2013 12:40:00 +0000'
 				export GIT_COMMITTER_DATE='Fri, 13 Dec 2013 12:40:00 +0000'
-			" && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
+			fi" && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 		console.log(query)
 
 		return exec(query)
