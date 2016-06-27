@@ -58,7 +58,7 @@ function modifyCommits(commits){
 
 
 	dates = _.sortBy(dates, function(date){
-		return +date;
+		return -date;
 	})
 
 	return _.reduce(commits, function(promise, commit, i){
