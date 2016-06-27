@@ -48,9 +48,11 @@ function modifyCommits(commits){
 
 	var dates = _.map(commits, function(commit){
 		var randomHour = 20 + _.random(0,6);
+		var randomMinute = _.random(0,60);
 
 		var d = new Date(+commit.date);
 		d.setHours(randomHour);
+		d.setMinutes(randomMinute);
 		return d;
 	});
 
@@ -61,6 +63,7 @@ function modifyCommits(commits){
 
 	return _.reduce(commits, function(promise, commit, i){
 		var targetDate = +dates[i];
+console.log(targetDate)
 		if(!promise){return commit.setDate(targetDate);}
 		return promise.then(function(){
 			return commit.setDate(targetDate);
@@ -80,7 +83,6 @@ Commit.prototype = {
 		return /\s*([^\s]*)/.exec(this.description)[1];
 	},
 	setDate: function(timestamp){
-		timestamp = timestamp || Date.now();
 		var id = this.id;
 		var dateStr = dateFormat(new Date(timestamp), 'ddd, d mmm yyyy HH:MM:ss o');
 
