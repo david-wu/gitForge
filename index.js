@@ -91,7 +91,7 @@ Commit.prototype = {
 		var id = this.id;
 		var date = +new Date(3128472);
 
-var dateStr = dateformat(new Date(), 'ddd, d mmm yyyy HH:MM:ss o')
+var dateStr = dateFormat(new Date(), 'ddd, d mmm yyyy HH:MM:ss o')
 
 
 		var query = `git filter-branch -f --env-filter \
