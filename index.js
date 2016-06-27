@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var childProcess = require('child_process')
 var fuzzy = require('fuzzy');
+var dateFormat = require('dateformat');
 
 currentBranch()
 	.then(unpushedCommits)
@@ -90,12 +91,15 @@ Commit.prototype = {
 		var id = this.id;
 		var date = +new Date(3128472);
 
+var dateStr = dateformat(new Date(), 'ddd, d mmm yyyy HH:MM:ss o')
+
+
 		var query = `git filter-branch -f --env-filter \
 			'
 			if test "$GIT_COMMIT" = "${id}"
 			then
-				export GIT_AUTHOR_DATE="${date}"
-				export GIT_COMMITTER_DATE="${date}"
+				export GIT_AUTHOR_DATE="${dateStr}"
+				export GIT_COMMITTER_DATE="${dateStr}"
 			fi' && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 
 		return exec(query)
