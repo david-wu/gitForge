@@ -22,7 +22,6 @@ function unpushedCommits(branch){
 }
 
 function parseCommits(str){
-// console.log(str)
 	var re = /commit +([^\n]*)\nAuthor: +([^\n]*)\nDate: +([^\n]*?)\n/;
 	var arr = str.split(re);
 	arr.shift();
@@ -32,7 +31,7 @@ function parseCommits(str){
 	while(arr.length >= 4){
 		commits.push(new Commit({
 			description: arr.pop(),
-			date: +new Date(arr.pop()),
+			date: new Date(arr.pop()),
 			author: arr.pop(),
 			id: arr.pop()
 		}));
@@ -43,39 +42,32 @@ function parseCommits(str){
 
 function modifyCommits(commits){
 
-	// return commits[1].setDate();
-console.log('settingDates')
-	return _.reduce(commits, function(promise, commit){
-		if(!promise){return commit.setDate();}
-		return promise.then(function(){
-			return commit.setDate();
-		});
-	}, undefined)
+	var startDate = _.first(commits).date;
+	var endDate = _.last(commits).date;
 
-		.catch(function(err){
-			console.log('failed to set date', err);
-		});
 
-	return a;
-	// return commits;
-}
+	var dates = _.map(commits, function(commit){
+		var randomHour = 20 + _.random(0,6);
 
-function exec(query, options){
-	options = options || {
-		maxBuffer: 100 * 1024 * 1024
-	};
-
-	return new Promise(function(res, rej){
-		childProcess.exec(query, options, function(err, stdout, stderr){
-			if(err){return rej(err)}
-			return res(chomp(stdout));
-		});
+		var d = new Date(+commit.date);
+		d.setHours(randomHour);
+		return d;
 	});
+
+
+	dates = _.sortBy(dates, function(date){
+		return +date;
+	})
+
+	return _.reduce(commits, function(promise, commit, i){
+		var targetDate = +dates[i];
+		if(!promise){return commit.setDate(targetDate);}
+		return promise.then(function(){
+			return commit.setDate(targetDate);
+		});
+	}, undefined);
 }
 
-function chomp(string){
-	return string.replace(/[\n\r]+$/, '');
-}
 
 
 function Commit(options){
@@ -87,12 +79,10 @@ Commit.prototype = {
 	getTitle: function(){
 		return /\s*([^\s]*)/.exec(this.description)[1];
 	},
-	setDate: function(date){
+	setDate: function(timestamp){
+		timestamp = timestamp || Date.now();
 		var id = this.id;
-		var date = +new Date(3128472);
-
-var dateStr = dateFormat(new Date(), 'ddd, d mmm yyyy HH:MM:ss o')
-
+		var dateStr = dateFormat(new Date(timestamp), 'ddd, d mmm yyyy HH:MM:ss o');
 
 		var query = `git filter-branch -f --env-filter \
 			'
@@ -109,4 +99,20 @@ var dateStr = dateFormat(new Date(), 'ddd, d mmm yyyy HH:MM:ss o')
 	}
 }
 
+function exec(query, options){
+	options = options || {
+		maxBuffer: 100 * 1024 * 1024
+	};
+
+	return new Promise(function(res, rej){
+		childProcess.exec(query, options, function(err, stdout, stderr){
+			if(err){return rej(err);}
+			return res(chomp(stdout));
+		});
+	});
+}
+
+function chomp(string){
+	return string.replace(/[\n\r]+$/, '');
+}
 
