@@ -5,7 +5,8 @@ var childProcess = require('child_process')
 var fuzzy = require('fuzzy');
 var dateFormat = require('dateformat');
 
-currentBranch()
+ensureCleanTree()
+	.then(currentBranch)
 	.then(unpushedCommits)
 	.then(parseCommits)
 	.then(modifyCommits)
@@ -19,6 +20,15 @@ function currentBranch(){
 
 function unpushedCommits(branch){
 	return exec(`git log origin/${branch}..HEAD`);
+}
+
+function ensureCleanTree(){
+	return exec('git status -s')
+		.then(function(res){
+			if(res){
+				throw 'You have unstaged changes! stash or commit first';
+			}
+		})
 }
 
 function parseCommits(str){
@@ -47,8 +57,9 @@ function modifyCommits(commits){
 
 
 	var dates = _.map(commits, function(commit){
-		var randomHour = 20 + _.random(0,6);
+		var randomHour = 21 + _.random(0,4);
 		var randomMinute = _.random(0,60);
+		// time between 9pm and 2am
 
 		var d = new Date(+commit.date);
 		d.setHours(randomHour);
@@ -63,7 +74,7 @@ function modifyCommits(commits){
 
 	return _.reduce(commits, function(promise, commit, i){
 		var targetDate = +dates[i];
-console.log(targetDate)
+
 		if(!promise){return commit.setDate(targetDate);}
 		return promise.then(function(){
 			return commit.setDate(targetDate);
@@ -96,7 +107,8 @@ Commit.prototype = {
 
 		return exec(query)
 			.then(function(res){
-				console.log('succ', res)
+				console.log('rebasing')
+				// console.log('succ', res)
 			})
 	}
 }
