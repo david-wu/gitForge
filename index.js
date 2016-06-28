@@ -13,15 +13,6 @@ ensureCleanTree()
 	.then(console.log)
 	.catch(console.log);
 
-
-function currentBranch(){
-	return exec('git name-rev --name-only HEAD');
-}
-
-function unpushedCommits(branch){
-	return exec(`git log origin/${branch}..HEAD`);
-}
-
 function ensureCleanTree(){
 	return exec('git status -s')
 		.then(function(res){
@@ -29,6 +20,14 @@ function ensureCleanTree(){
 				throw 'You have unstaged changes! stash or commit first';
 			}
 		})
+}
+
+function currentBranch(){
+	return exec('git name-rev --name-only HEAD');
+}
+
+function unpushedCommits(branch){
+	return exec(`git log origin/${branch}..HEAD`);
 }
 
 function parseCommits(str){
@@ -55,18 +54,9 @@ function modifyCommits(commits){
 	var startDate = _.first(commits).date;
 	var endDate = _.last(commits).date;
 
-
 	var dates = _.map(commits, function(commit){
-		var randomHour = 21 + _.random(0,4);
-		var randomMinute = _.random(0,60);
-		// time between 9pm and 2am
-
-		var d = new Date(+commit.date);
-		d.setHours(randomHour);
-		d.setMinutes(randomMinute);
-		return d;
+		return randomTime(commit.date);
 	});
-
 
 	dates = _.sortBy(dates, function(date){
 		return -date;
@@ -83,6 +73,15 @@ function modifyCommits(commits){
 	}, undefined);
 }
 
+function randomTime(date){
+	var randomHour = 21 + _.random(0, 4);
+	var randomMinute = _.random(0, 60);
+
+	var d = new Date(+date);
+	d.setHours(randomHour);
+	d.setMinutes(randomMinute);
+	return d;
+}
 
 
 function Commit(options){
