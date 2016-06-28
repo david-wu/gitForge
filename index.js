@@ -106,11 +106,7 @@ Commit.prototype = {
 				export GIT_COMMITTER_DATE="${dateStr}"
 			fi' && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 
-		return exec(query)
-			.then(function(res){
-				console.log('rebasing')
-				// console.log('succ', res)
-			})
+		return exec(query);
 	}
 }
 
