@@ -60,7 +60,7 @@ function modifyCommits(commits){
 
 	dates = _.sortBy(dates, function(date){
 		return -date;
-	})
+	});
 
 	return _.reduce(commits, function(promise, commit, i){
 		var targetDate = +dates[i];
@@ -111,7 +111,7 @@ Commit.prototype = {
 
 function exec(query, options){
 	options = options || {
-		maxBuffer: 100 * 1024 * 1024
+		maxBuffer: 512 * 1024 * 1024
 	};
 
 	return new Promise(function(res, rej){
